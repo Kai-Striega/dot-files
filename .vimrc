@@ -1,34 +1,28 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'preservim/nerdtree'
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
+call plug#end()
 
-Plugin 'Valloric/YouCompleteMe'
-
-Plugin 'preservim/nerdtree'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
 filetype plugin indent on    " required
 
 " Turn syntax highlighting on.
 syntax on
 
+set t_Co=256
 
+set fileformat=unix
 " Add numbers to each line on the left-hand side.
 set relativenumber
+
+set foldmethod=indent
+
+set foldlevel=99
 
 " Highlight cursor line underneath the cursor horizontally.
 set cursorline
@@ -107,4 +101,47 @@ set laststatus=2
 " }}}
 
 :colorscheme molokai 
+
+" ============================================
+" AUTOCOMPLETE (CoC)
+" ============================================
+
+" Tab to navigate completion list
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Enter to confirm completion
+inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<CR>"
+
+
+" ============================================
+" LSP NAVIGATION
+" ============================================
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> K :call CocAction('doHover')<CR>
+
+" Rename symbol across project
+nmap <leader>rn <Plug>(coc-rename)
+
+" Code actions (add imports, apply suggestions etc.)
+nmap <leader>ac <Plug>(coc-codeaction-cursor)
+
+
+" ============================================
+" DIAGNOSTICS
+" ============================================
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Show all diagnostics in the project
+nmap <leader>d :CocList diagnostics<CR>
 
