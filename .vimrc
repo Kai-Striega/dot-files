@@ -4,8 +4,10 @@ filetype off                  " required
 call plug#begin('~/.vim/plugged')
 
 Plug 'neovimhaskell/haskell-vim'
+Plug 'awvwgk/fortran.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'
+
 
 call plug#end()
 

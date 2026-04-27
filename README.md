@@ -20,20 +20,26 @@ gh repo clone Kai-Striega/dot-files ~/
 ln -s ~/dot-files/.vimrc ~/.vimrc
 ```
 
-3. Open Vim and install plugins:
+3. Install the Fortran langauge server `fortls`:
+
+```shell
+pipx install fortls
+```
+
+4. Open Vim and install plugins:
 
 
 ```vim
 :PlugInstall
 ```
 
-4. Install CoC langauge extensions:
+5. Install CoC langauge extensions:
 
 ```vim
 :CocInstall coc-pyright coc-clangd coc-rust-analyzer
 ```
 
-5. Add HLS config for Haskell by opening :CocConfig in Vim and pasting:
+6. Add config for Haskell and Fortran by opening :CocConfig in Vim and pasting:
 
 ```json
 {
@@ -43,6 +49,12 @@ ln -s ~/dot-files/.vimrc ~/.vimrc
       "args": ["--lsp"],
       "rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
       "filetypes": ["haskell", "lhaskell"]
+    },
+    "fortran": {
+      "command": "fortls",
+      "args": ["--notify_init", "--hover_signature", "--use_signature_help"],
+      "rootPatterns": [".fortls", ".git"],
+      "filetypes": ["fortran"]
     }
   }
 }
