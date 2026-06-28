@@ -110,3 +110,35 @@ cd ~/.vim/colors
 ```
 curl -o molokai.vim https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
 ```
+
+# Neovim
+
+A minimal Neovim configuration for the same languages, built entirely on
+Neovim's built-ins: native LSP, built-in completion, default LSP keymaps, and a
+bundled colorscheme. There is no plugin manager and no external Neovim plugins.
+Requires **Neovim 0.11+** (the native `vim.lsp.config`/`vim.lsp.enable` API).
+
+## Installation
+
+1. Stow the `nvim` package (symlinks `~/.config/nvim/init.lua`):
+
+```shell
+cd ~/dot-files
+./bootstrap.sh nvim
+```
+
+2. Install the language servers you need so the LSP can attach. `rust-analyzer`,
+   `haskell-language-server-wrapper`, and `fortls` usually come with their
+   toolchains; `pyright` and `clangd` are installed separately:
+
+```shell
+npm install -g pyright       # Python
+sudo apt install clangd      # C/C++
+```
+
+## Key bindings
+
+LSP navigation uses Neovim's built-in defaults: `K` (hover), `gd` (definition),
+`grr` (references), `gri` (implementation), `grn` (rename), `gra` (code action),
+and `[d` / `]d` (previous/next diagnostic). `<leader>e` toggles the built-in
+netrw file explorer.
