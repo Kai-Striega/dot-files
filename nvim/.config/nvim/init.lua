@@ -1,4 +1,4 @@
--- Neovim configuration, migrated from vim/.vimrc.
+-- Neovim configuration.
 -- Built entirely on Neovim's built-ins: native LSP, built-in completion,
 -- default LSP keymaps, built-in syntax highlighting and colorschemes.
 -- No plugin manager and no external Neovim plugins.
