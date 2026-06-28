@@ -8,38 +8,53 @@ A portable Vim configuration for Haskell, Python, C++, and Rust development, usi
 
 ## Installation
 
-1. Clone this repo into any directory that you would like:
+These dotfiles are managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Each top-level directory in this repo is a Stow *package* whose contents are
+mirrored into `$HOME` (e.g. `vim/.vimrc` is symlinked to `~/.vimrc`). Add new
+dotfiles by following the same `package/.dotfile` layout.
+
+1. Install GNU Stow:
 
 ```shell
-gh repo clone Kai-Striega/dot-files ~/
+sudo apt install stow      # Debian/Ubuntu
+brew install stow          # macOS
 ```
 
-2. Add a symbolic link for you system to find your dotfiles:
+2. Clone this repo into any directory that you would like:
 
 ```shell
-ln -s ~/dot-files/.vimrc ~/.vimrc
+gh repo clone Kai-Striega/dot-files ~/dot-files
 ```
 
-3. Install the Fortran langauge server `fortls`:
+3. Symlink the dotfiles into your home directory with the bootstrap script:
+
+```shell
+cd ~/dot-files
+./bootstrap.sh -n          # dry run: preview the changes without applying them
+./bootstrap.sh             # create the symlinks
+./bootstrap.sh -R          # restow after adding new files to a package
+```
+
+4. Install the Fortran langauge server `fortls`:
 
 ```shell
 pipx install fortls
 ```
 
-4. Open Vim and install plugins:
+5. Open Vim and install plugins:
 
 
 ```vim
 :PlugInstall
 ```
 
-5. Install CoC langauge extensions:
+6. Install CoC langauge extensions:
 
 ```vim
 :CocInstall coc-pyright coc-clangd coc-rust-analyzer
 ```
 
-6. Add config for Haskell and Fortran by opening :CocConfig in Vim and pasting:
+7. Add config for Haskell and Fortran by opening :CocConfig in Vim and pasting:
 
 ```json
 {
