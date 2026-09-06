@@ -44,6 +44,7 @@ The Neovim config uses no plugins. It only needs the language-server binaries be
 | rust-analyzer | Rust | `rustup component add rust-analyzer` (see [Rust](#rust)) |
 | haskell-language-server (`haskell-language-server-wrapper`) | Haskell | `ghcup install hls` (see [Haskell](#haskell)) |
 | fortls | Fortran | `uv tool install fortls` (needs [uv](#uv)) |
+| texlab | LaTeX / BibTeX | `cargo install --locked texlab` (see [Rust](#rust)) / `brew install texlab` |
 
 ## Toolchains used to obtain the servers
 

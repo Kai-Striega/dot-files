@@ -93,7 +93,13 @@ vim.lsp.config("fortls", {
   root_markers = { ".fortls", ".git" },
 })
 
-vim.lsp.enable({ "pyright", "clangd", "rust_analyzer", "hls", "fortls" })
+vim.lsp.config("texlab", {
+  cmd = { "texlab" },
+  filetypes = { "tex", "plaintex", "bib" },
+  root_markers = { ".latexmkrc", ".git" },
+})
+
+vim.lsp.enable({ "pyright", "clangd", "rust_analyzer", "hls", "fortls", "texlab" })
 
 -- Show diagnostics inline.
 vim.diagnostic.config({ virtual_text = true })
