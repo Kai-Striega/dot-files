@@ -24,7 +24,7 @@ vendor script show that instead.
 | zsh | the shell itself | `sudo apt install zsh` / `brew install zsh` |
 | [Oh My Zsh](https://ohmyz.sh/) | framework (`robbyrussell` theme, `git` plugin) | `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"` |
 | [Starship](https://starship.rs/) | the prompt (`starship init zsh`) | `curl -sS https://starship.rs/install.sh \| sh` / `brew install starship` |
-| tmux | the `t` alias (`tmux new-session -A -s main`) | `sudo apt install tmux` / `brew install tmux` |
+| tmux | the `t` alias (`tmux new-session -A -s main`) | see the [`tmux` package](#tmux--tmux-package-tmuxconfigtmuxtmuxconf) |
 | Neovim | the `vim` alias points at `nvim` (see below) | see the `nvim` package |
 
 ## Neovim — `nvim` package (`nvim/.config/nvim/init.lua`)
@@ -97,6 +97,16 @@ xcode-select --install
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
+## Tmux — `tmux` package (`tmux/.config/tmux/tmux.conf`)
+
+| Dependency | Used for | Install |
+|------------|----------|---------|
+| tmux **3.1+** | the multiplexer itself; 3.1 is the first version that reads `~/.config/tmux/tmux.conf` | `sudo apt install tmux` / `brew install tmux` |
+| ncurses-term | supplies the `tmux-256color` terminfo entry used by `default-terminal` | `sudo apt install ncurses-term` / provided by `brew install ncurses` |
+| wl-clipboard *(Wayland)* or xclip *(X11)* | what Neovim's clipboard provider shells out to on Linux; not needed on macOS, which uses `pbcopy` | `sudo apt install wl-clipboard` or `sudo apt install xclip` |
+
+The tmux config uses no plugins and no TPM — it is a plain `tmux.conf` only.
+
 # Installation
 
 These dotfiles are managed with [GNU Stow](https://www.gnu.org/software/stow/).
@@ -160,3 +170,31 @@ LSP navigation uses Neovim's built-in defaults: `K` (hover), `gd` (definition),
 `grr` (references), `gri` (implementation), `grn` (rename), `gra` (code action),
 and `[d` / `]d` (previous/next diagnostic). `<leader>e` toggles the built-in
 netrw file explorer.
+
+# Tmux
+
+A minimal tmux configuration in the same spirit as the Neovim config: a single
+plain `tmux.conf` with no TPM and no plugins. It sets `tmux-256color` with true
+colour passthrough, turns on `set-clipboard` so copy-mode yanks reach the
+desktop clipboard over OSC 52, keeps `<Esc>` responsive and focus events on for
+Neovim, and switches to 1-based, auto-renumbering windows with the mouse
+enabled. Requires **tmux 3.1+** for the `~/.config/tmux/tmux.conf` path.
+
+## Installation
+
+Stow the `tmux` package (symlinks `~/.config/tmux/tmux.conf`):
+
+```shell
+cd ~/dot-files
+./bootstrap.sh tmux
+```
+
+`default-terminal "tmux-256color"` needs that terminfo entry, which ships
+separately on Ubuntu; see [Dependencies](#tmux--tmux-package-tmuxconfigtmuxtmuxconf)
+above.
+
+## Key bindings
+
+The prefix is the default `C-b`. `prefix r` re-sources `~/.config/tmux/tmux.conf`
+and flashes a confirmation. Copy mode uses vi keys (`setw -g mode-keys vi`): `v`
+begins a selection and `y` yanks it and leaves copy mode.
