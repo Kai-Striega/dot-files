@@ -39,24 +39,14 @@ The Neovim config uses no plugins. It only needs the language-server binaries be
 
 | Server | Language | Install |
 |--------|----------|---------|
-| pyright (`pyright-langserver`) | Python | `npm install -g pyright` (needs [Node.js](#nodejs)) |
+| pyrefly | Python | `uv tool install pyrefly` (needs [uv](#uv-for-pyrefly-and-fortls)) |
 | clangd | C / C++ | `sudo apt install clangd` / `brew install llvm` |
 | rust-analyzer | Rust | `rustup component add rust-analyzer` (see [Rust](#rust)) |
 | haskell-language-server (`haskell-language-server-wrapper`) | Haskell | `ghcup install hls` (see [Haskell](#haskell)) |
-| fortls | Fortran | `uv tool install fortls` (needs [uv](#uv)) |
+| fortls | Fortran | `uv tool install fortls` (needs [uv](#uv-for-pyrefly-and-fortls)) |
 | texlab | LaTeX / BibTeX | `cargo install --locked texlab` (see [Rust](#rust)) / `brew install texlab` |
 
 ## Toolchains used to obtain the servers
-
-### Node.js
-
-Install via nvm (recommended over apt, which often ships an outdated version):
-
-```shell
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-source ~/.bashrc
-nvm install --lts
-```
 
 ### Rust
 
@@ -70,7 +60,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 ```
 
-### uv (for fortls)
+### uv (for pyrefly and fortls)
 
 [uv](https://docs.astral.sh/uv/) installs each tool into its own isolated
 environment using its own managed Python, so it is unaffected by system Python
@@ -78,6 +68,7 @@ changes:
 
 ```shell
 curl -LsSf https://astral.sh/uv/install.sh | sh   # install uv
+uv tool install pyrefly                           # install the Python server
 uv tool install fortls                            # install the Fortran server
 ```
 
@@ -158,10 +149,10 @@ cd ~/dot-files
 
 2. Install the language servers you need so the LSP can attach. `rust-analyzer`,
    `haskell-language-server-wrapper`, and `fortls` usually come with their
-   toolchains; `pyright` and `clangd` are installed separately:
+   toolchains; `pyrefly` and `clangd` are installed separately:
 
 ```shell
-npm install -g pyright       # Python
+uv tool install pyrefly      # Python
 sudo apt install clangd      # C/C++
 ```
 

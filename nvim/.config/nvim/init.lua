@@ -60,13 +60,13 @@ vim.cmd.colorscheme("retrobox")
 -- LSP (native, no nvim-lspconfig)
 -- ============================================
 -- Server binaries are expected on PATH. rust-analyzer, hls and fortls are
--- typically installed via their toolchains; pyright and clangd must be
+-- typically installed via their toolchains; pyrefly and clangd must be
 -- installed separately (see README).
 
-vim.lsp.config("pyright", {
-  cmd = { "pyright-langserver", "--stdio" },
+vim.lsp.config("pyrefly", {
+  cmd = { "pyrefly", "lsp" },
   filetypes = { "python" },
-  root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" },
+  root_markers = { "pyrefly.toml", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" },
 })
 
 vim.lsp.config("clangd", {
@@ -99,7 +99,7 @@ vim.lsp.config("texlab", {
   root_markers = { ".latexmkrc", ".git" },
 })
 
-vim.lsp.enable({ "pyright", "clangd", "rust_analyzer", "hls", "fortls", "texlab" })
+vim.lsp.enable({ "pyrefly", "clangd", "rust_analyzer", "hls", "fortls", "texlab" })
 
 -- Show diagnostics inline.
 vim.diagnostic.config({ virtual_text = true })
